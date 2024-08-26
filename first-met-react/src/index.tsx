@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import Chapter3Library from "./test/chapter3/Library";
+import CommentList from "./test/chapter5/CommentList";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Chapter3Library />
+    <CommentList />
   </React.StrictMode>
 );
 
