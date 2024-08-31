@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import CommentList from "./test/chapter5/CommentList";
 import NotificationList from "./test/chapter6/NotificationList";
 
 const root = ReactDOM.createRoot(

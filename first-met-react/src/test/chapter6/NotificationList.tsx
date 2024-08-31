@@ -5,12 +5,15 @@ import { clearInterval } from "timers";
 
 const reservedNotifications: Chapter6Props[] = [
   {
+    id: 1,
     message: "안녕하세요, 오늘 일정을 알려드립니다.",
   },
   {
+    id: 2,
     message: "점심 식사 시간입니다.",
   },
   {
+    id: 3,
     message: "이제 곧 미팅이 시작됩니다.",
   },
 ];
@@ -27,6 +30,7 @@ const NotificationList = () => {
 
       setNotificaitons(notifications);
     }, 1000);
+
     return () => {
       clearInterval(interval.current);
     };
@@ -35,7 +39,9 @@ const NotificationList = () => {
   return (
     <div>
       {notifications.map((notificaiton: Chapter6Props) => {
-        return <Notification message={notificaiton.message} />;
+        return (
+          <Notification id={notificaiton.id} message={notificaiton.message} />
+        );
       })}
     </div>
   );
