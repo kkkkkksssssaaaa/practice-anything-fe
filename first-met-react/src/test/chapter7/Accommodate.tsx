@@ -5,7 +5,7 @@ const MAX_CAPACITY = 10;
 
 const Accommodate = () => {
   const [isFull, setIsFull] = useState(false);
-  const [count, increaseCount, decreaseCount] = useCounter(0);
+  const { count, increaseCount, decreaseCount } = useCounter(0);
 
   useEffect(() => {
     console.log("===========================");
