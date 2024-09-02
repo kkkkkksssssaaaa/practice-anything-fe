@@ -2,15 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import NotificationList from "./test/chapter6/NotificationList";
-import Accommodate from "./test/chapter7/Accommodate";
+import ConfirmButton from "./test/chapter8/ConfirmButton";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Accommodate />
+    <ConfirmButton />
   </React.StrictMode>
 );
 
