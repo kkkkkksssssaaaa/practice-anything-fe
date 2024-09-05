@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import ConfirmButton from "./test/chapter8/ConfirmButton";
+import LandingPage from "./test/chapter9/LandingPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ConfirmButton />
+    <LandingPage />
   </React.StrictMode>
 );
 
