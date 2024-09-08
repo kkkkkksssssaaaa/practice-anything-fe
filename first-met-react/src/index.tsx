@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import SignUp from "./test/chapter11/SignUp";
+import Calculator from "./test/chapter12/Calcurator";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <SignUp />
+    <Calculator />
   </React.StrictMode>
 );
 
