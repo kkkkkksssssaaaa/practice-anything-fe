@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import Calculator from "./test/chapter12/Calcurator";
+import ProfileCard from "./test/chapter13/ProfileCard";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Calculator />
+    <ProfileCard />
   </React.StrictMode>
 );
 
