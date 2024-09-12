@@ -1,12 +1,10 @@
 import React from "react";
 
-const ThemeContext = React.createContext<ContextProps>({
-  theme: "light",
-});
+const ThemeContext = React.createContext<ContextProps>({});
 ThemeContext.displayName = "ThemeContext";
 
 export type ContextProps = {
-  theme: string;
+  theme?: string;
   toggleTheme?(): void;
 };
 
