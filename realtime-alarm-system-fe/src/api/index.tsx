@@ -36,6 +36,7 @@ export default class api {
 
   static post<T>(request: RequestMetadata): Promise<AxiosResponse<T>> {
     const header = request.headers ?? Headers.default();
+
     return instance.post(request.path, request.bodyParams, {
       headers: header.toAxiosHeader(),
     });

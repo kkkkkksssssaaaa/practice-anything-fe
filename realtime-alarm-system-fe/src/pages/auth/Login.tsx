@@ -1,10 +1,10 @@
 import { Form, Row, Button } from "react-bootstrap";
-import Api from "../../api";
 import { useForm } from "react-hook-form";
 import { LoginRequest } from "../../types/login/LoginRequest";
-import { useState } from "react";
 import { useMutation } from "react-query";
-import { doLoginRequest } from "../../api/login/login";
+import { doLoginRequest } from "../../api/auth/auth";
+import { AxiosError, AxiosResponse } from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -13,17 +13,18 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginRequest>();
 
+  const navigate = useNavigate();
   const mutation = useMutation(doLoginRequest);
 
   const onSubmit = (request: LoginRequest) => {
     mutation
       .mutateAsync(request)
-      .then((res) => {
-        console.log(res.data);
+      .then((res: AxiosResponse) => {
+        localStorage.setItem("accessToken", res.data.accessToken);
+        navigate("/");
       })
-      .catch((err) => {
-        console.log("error accured");
-        console.log(err.message);
+      .catch((err: AxiosError) => {
+        alert(err.message);
       });
   };
 

@@ -14,6 +14,13 @@ export class Headers {
     } else {
       this.values = values;
     }
+
+    if (localStorage.getItem("accessToken")) {
+      this.values.push({
+        key: "Authorization",
+        value: `Bearer ${localStorage.getItem("accessToken")}`,
+      });
+    }
   }
 
   static default(): Headers {

@@ -5,6 +5,8 @@ import reportWebVitals from "./reportWebVitals";
 import Main from "./pages/main/Main";
 import { QueryClientProvider } from "react-query";
 import queryClient from "./api/queryClient";
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -12,7 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Main />
+      <RouterProvider router={router} />
     </QueryClientProvider>
   </React.StrictMode>,
 );
