@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./assets/styles/global.scss";
 import reportWebVitals from "./reportWebVitals";
-import Main from "./pages/main/Main";
 import { QueryClientProvider } from "react-query";
 import queryClient from "./api/queryClient";
 import { RouterProvider } from "react-router-dom";
