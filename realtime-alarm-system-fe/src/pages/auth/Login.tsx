@@ -1,10 +1,11 @@
-import { Form, Row, Button } from "react-bootstrap";
+import { Form, Row, Button, Container, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { LoginRequest } from "../../types/login/LoginRequest";
 import { useMutation } from "react-query";
 import { doLoginRequest } from "../../api/auth/auth";
 import { AxiosError, AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
+import logoImage from "../../assets/images/main-logo.jpg";
 
 const Login = () => {
   const {
@@ -29,19 +30,49 @@ const Login = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Row>
-        <Form.Label>아이디</Form.Label>
-        <Form.Control type={"text"} {...register("loginId")} />
+    <Container
+      fluid
+      className="vh-100 d-flex justify-content-center align-items-center"
+    >
+      <Row className="flex-column align-items-center">
+        <Col className="mb-3 imageS">
+          <img src={logoImage} />
+        </Col>
+        <Col className="mb-3"></Col>
+        <Col className="mb-3">
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Row>
+              <Form.Control
+                type={"text"}
+                placeholder="아이디"
+                {...register("loginId", {
+                  required: "아이디를 입력해주세요.",
+                })}
+              />
+              <Form.Label className="errorText">
+                {errors?.loginId?.message}
+              </Form.Label>
+            </Row>
+            <Row>
+              <Form.Control
+                type={"password"}
+                placeholder="비밀번호"
+                {...register("password", {
+                  required: "비밀번호를 입력해주세요.",
+                })}
+              />
+              <Form.Label className="errorText">
+                {errors?.password?.message}
+              </Form.Label>
+            </Row>
+            <Row>&nbsp;</Row>
+            <Row>
+              <Button type={"submit"}>로그인</Button>
+            </Row>
+          </Form>
+        </Col>
       </Row>
-      <Row>
-        <Form.Label>비밀번호</Form.Label>
-        <Form.Control type={"password"} {...register("password")} />
-      </Row>
-      <Row>
-        <Button type={"submit"}>로그인</Button>
-      </Row>
-    </Form>
+    </Container>
   );
 };
 

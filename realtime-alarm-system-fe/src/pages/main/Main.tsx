@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {
@@ -12,10 +13,11 @@ const Main = () => {
   }, []);
 
   return (
-    <div>
-      <h1>this is main</h1>
-      <span>hihi</span>
-    </div>
+    <Container>
+      <Row>
+        <h1>FRIENDS</h1>
+      </Row>
+    </Container>
   );
 };
 
