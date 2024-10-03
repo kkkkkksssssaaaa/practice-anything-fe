@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../pages/main/Main";
 import Login from "../pages/auth/Login";
 import Logout from "../pages/auth/Logout";
+import Registration from "../pages/users/registration/Registration";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/auth/logout",
     element: <Logout />,
+  },
+  {
+    path: "/users/registration",
+    element: <Registration />,
   },
 ]);
 

@@ -1,5 +1,5 @@
 import api from "..";
-import { LoginRequest } from "../../types/login/LoginRequest";
+import { LoginRequest } from "../../types/auth/LoginRequest";
 
 const loginEndpoint = "/auth/login";
 const logoutEndpoint = "/auth/logout";

@@ -1,11 +1,12 @@
 import { Form, Row, Button, Container, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { LoginRequest } from "../../types/login/LoginRequest";
+import { LoginRequest } from "../../types/auth/LoginRequest";
 import { useMutation } from "react-query";
 import { doLoginRequest } from "../../api/auth/auth";
 import { AxiosError, AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 import logoImage from "../../assets/images/main-logo.jpg";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -16,6 +17,8 @@ const Login = () => {
 
   const navigate = useNavigate();
   const mutation = useMutation(doLoginRequest);
+
+  const registrationEndpont = "/users/registration";
 
   const onSubmit = (request: LoginRequest) => {
     mutation
@@ -70,6 +73,9 @@ const Login = () => {
               <Button type={"submit"}>로그인</Button>
             </Row>
           </Form>
+        </Col>
+        <Col className="mb-3">
+          <Link to={registrationEndpont}>회원가입</Link>
         </Col>
       </Row>
     </Container>
