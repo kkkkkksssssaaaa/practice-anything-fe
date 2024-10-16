@@ -1,0 +1,16 @@
+.artist-list-item {
+  width: 100%;
+  height: 8vh;
+  border: 1px solid #444;
+
+  .artist-image {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #444;
+    float: left;
+  }
+
+  .artist-profile {
+    float: left;
+  }
+}
