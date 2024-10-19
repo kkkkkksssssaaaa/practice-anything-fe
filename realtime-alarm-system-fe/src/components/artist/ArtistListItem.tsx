@@ -18,13 +18,13 @@ const ArtistListItem = (props: Artist) => {
 
   return (
     <Row>
-      <div className={"artist-list-item"} id={`artist-${artist?.id}`}>
-        <div className="artist-image imageS">
+      <div className={"profile-list-item"} id={`artist-${artist?.id}`}>
+        <div className="profile-image imageS">
           <img src={artist?.profile?.image || defaultProfileIcon} />
         </div>
-        <div className="artist-profile">
+        <div className="profile-content">
           <span>name={artist?.name}</span>
-          <span>group={artist?.group?.name}</span>
+          <span>statusMessage={artist?.profile?.statusMessage}</span>
         </div>
       </div>
     </Row>
