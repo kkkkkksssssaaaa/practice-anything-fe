@@ -32,10 +32,11 @@ const Main = () => {
         <h1>FREIDNS</h1>
       </Row>
       <Row>
-        <h4>내 프로필</h4>
+        <span>내 프로필</span>
         <MyProfileListItem />
       </Row>
       <Row>
+        <span>추천 친구</span>
         {artists?.map((artist) => (
           <ArtistListItem key={artist.id} {...artist} />
         ))}

@@ -19,12 +19,18 @@ const ArtistListItem = (props: Artist) => {
   return (
     <Row>
       <div className={"profile-list-item"} id={`artist-${artist?.id}`}>
-        <div className="profile-image imageS">
-          <img src={artist?.profile?.image || defaultProfileIcon} />
+        <div className={"profile-left"}>
+          <div className="profile-image">
+            <img src={artist?.profile?.image || defaultProfileIcon} />
+          </div>
+          <div className={"profile-nickname"}>
+            <span>{artist?.name}</span>
+          </div>
         </div>
-        <div className="profile-content">
-          <span>name={artist?.name}</span>
-          <span>statusMessage={artist?.profile?.statusMessage}</span>
+        <div className={"profile-right"}>
+          <div className={"profile-message"}>
+            <span>{artist?.profile?.statusMessage}</span>
+          </div>
         </div>
       </div>
     </Row>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { MyInfoResponse } from "../../../types/users/MyInfoResponse";
 import { getMyInfoRequest } from "../../../api/users/my";
 import { AxiosError, AxiosResponse } from "axios";
+import "../../../assets/styles/users/my.scss";
 
 const MyProfileListItem = () => {
   const navigate = useNavigate();
@@ -27,12 +28,14 @@ const MyProfileListItem = () => {
 
   return (
     <Row>
-      <div className={"profile-list-item"}>
-        <div className="profile-image imageS">
-          <img src={myInfo?.profile?.image || defaultProfileIcon} />
-        </div>
-        <div className={"profile-content"}>
-          <span>{myInfo?.personalInfo.name}</span>
+      <div className={"profile-list-item"} id={`my-${myInfo?.id}`}>
+        <div className={"profile-left"}>
+          <div className="profile-image">
+            <img src={myInfo?.profile?.image || defaultProfileIcon} />
+          </div>
+          <div className={"profile-nickname my-nickname"}>
+            <span>{myInfo?.personalInfo?.name}</span>
+          </div>
         </div>
       </div>
     </Row>

@@ -28,10 +28,6 @@ code {
   align-items: center;
 }
 
-.width100 {
-  width: 100%;
-}
-
 .imageS {
   width: 25vw;
 
@@ -40,7 +36,52 @@ code {
   }
 }
 
+.width100 {
+  width: 100%;
+}
+
 .errorText {
   color: red;
   font-size: 0.8rem;
+}
+
+.profile-list-item {
+  width: 100%;
+  height: 8vh;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+
+  .profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+
+    img {
+      width: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+  }
+
+  .profile-left {
+    display: flex;
+    align-items: center;
+
+    .profile-nickname {
+      font-size: 1.1rem;
+    }
+  }
+
+  .profile-message {
+    font-size: 0.9rem;
+    color: #888;
+    text-align: right;
+  }
 }
