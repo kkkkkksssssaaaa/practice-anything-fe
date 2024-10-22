@@ -1,0 +1,18 @@
+.bottom-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.05);
+
+  .menu-item {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+  }
+}

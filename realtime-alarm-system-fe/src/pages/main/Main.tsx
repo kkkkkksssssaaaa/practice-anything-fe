@@ -6,6 +6,7 @@ import { findAllArtistRequest } from "../../api/artist/artist";
 import { AxiosResponse } from "axios";
 import ArtistListItem from "../../components/artist/ArtistListItem";
 import MyProfileListItem from "../../components/users/my/MyProfileListItem";
+import Bottom from "../../components/common/Bottom";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ const Main = () => {
           <ArtistListItem key={artist.id} {...artist} />
         ))}
       </Row>
+      <Bottom />
     </Container>
   );
 };
