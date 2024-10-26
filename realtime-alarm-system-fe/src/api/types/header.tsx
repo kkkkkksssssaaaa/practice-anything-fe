@@ -27,6 +27,10 @@ export class Headers {
     return new Headers([contentType]);
   }
 
+  static empty(): Headers {
+    return new Headers([]);
+  }
+
   public toAxiosHeader(): RawAxiosRequestHeaders {
     const result: RawAxiosRequestHeaders = {};
 

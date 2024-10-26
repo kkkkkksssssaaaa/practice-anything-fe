@@ -13,6 +13,10 @@ const Main = () => {
   const [artists, setArtists] = useState<Artist[] | undefined>(undefined);
 
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
     if (!localStorage.getItem("accessToken")) {
       console.log("User not logged in.");
       navigate("/auth/login");
@@ -22,10 +26,10 @@ const Main = () => {
           setArtists(res.data);
         })
         .catch((err) => {
-          alert("Cannot find artists. Please re-try later.");
+          // alert("Cannot find artists. Please re-try later.");
         });
     }
-  }, []);
+  };
 
   return (
     <Container>

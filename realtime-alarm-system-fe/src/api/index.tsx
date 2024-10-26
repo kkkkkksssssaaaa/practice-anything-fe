@@ -1,6 +1,18 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from "axios";
 import { QueryParams } from "./types/queryParams";
 import { Headers } from "./types/header";
+
+export type RequestMetadata = {
+  path: string;
+  headers?: Headers;
+  queryParams?: QueryParams;
+  bodyParams?: any;
+};
 
 const instance: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_HOST,
@@ -9,12 +21,86 @@ const instance: AxiosInstance = axios.create({
   withCredentials: true,
 });
 
-export type RequestMetadata = {
-  path: string;
-  headers?: Headers;
-  queryParams?: QueryParams;
-  bodyParams?: any;
+let isRefreshing = false; // 갱신 중인지 여부
+
+let failedQueue: Array<{
+  requestConfig: AxiosRequestConfig;
+  resolve: (value: AxiosResponse) => any;
+  reject: (reason: AxiosError) => any;
+}> = []; // 실패 큐
+
+const processQueue = (
+  error: AxiosError | null,
+  token: string | null = null,
+) => {
+  failedQueue.forEach(async ({ requestConfig, resolve, reject }) => {
+    if (error) {
+      reject(error);
+    } else if (token) {
+      // 갱신된 토큰으로 Authorization 헤더를 설정하고 요청 재시도
+      requestConfig.headers = {
+        ...requestConfig.headers,
+        Authorization: `Bearer ${token}`,
+      };
+      resolve(await instance(requestConfig));
+    }
+  });
+  failedQueue = [];
 };
+
+// 응답 인터셉터
+instance.interceptors.response.use(
+  (response: AxiosResponse) => {
+    return response;
+  },
+  async (error: AxiosError) => {
+    const originalRequest = error.config;
+
+    // originalRequest가 존재하지 않으면 오류를 바로 반환
+    if (!originalRequest) {
+      return Promise.reject(error);
+    }
+
+    if (!Object.hasOwn(originalRequest, "_retry")) {
+      (originalRequest as any)._retry = false;
+    }
+
+    if (error.response?.status === 403 && !(originalRequest as any)._retry) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ requestConfig: originalRequest, resolve, reject });
+        });
+      }
+
+      isRefreshing = true;
+      (originalRequest as any)._retry = true;
+      localStorage.removeItem("accessToken");
+
+      api
+        .post({
+          path: `/auth/token/refresh`,
+          headers: Headers.default(),
+        })
+        .then((res: AxiosResponse) => {
+          const accessToken = res.data.accessToken;
+          localStorage.setItem("accessToken", accessToken);
+
+          originalRequest.headers["Authorization"] = "Bearer " + accessToken;
+          processQueue(null, accessToken);
+          return instance(originalRequest); // 토큰 갱신 후 원래 요청 재시도
+        })
+        .catch((err: AxiosError) => {
+          processQueue(err, null);
+          return Promise.reject(err);
+        })
+        .finally(() => {
+          isRefreshing = false;
+        });
+    }
+
+    return Promise.reject(error);
+  },
+);
 
 export default class api {
   static get<T>(request: RequestMetadata): Promise<AxiosResponse<T>> {

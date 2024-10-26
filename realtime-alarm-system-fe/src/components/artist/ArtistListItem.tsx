@@ -10,7 +10,7 @@ const ArtistListItem = (props: Artist) => {
 
   useEffect(() => {
     if (!props) {
-      alert("Cannot find artists. Please re-try later.");
+      // alert("Cannot find artists. Please re-try later.");
     }
 
     setArtist(props);

@@ -21,7 +21,7 @@ const MyProfileListItem = () => {
           setMyInfo(res.data);
         })
         .catch((err: AxiosError) => {
-          alert(err.message);
+          // alert(err.message);
         });
     }
   }, []);
