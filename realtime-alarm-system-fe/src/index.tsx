@@ -6,14 +6,17 @@ import { QueryClientProvider } from "react-query";
 import queryClient from "./api/queryClient";
 import { RouterProvider } from "react-router-dom";
 import router from "./router";
+import { ApiProvider } from "./api";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} />
-  </QueryClientProvider>,
+  <ApiProvider>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  </ApiProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function
