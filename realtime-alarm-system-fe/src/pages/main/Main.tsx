@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Artist } from "../../types/artist/Artist";
-import { findAllArtistRequest } from "../../api/artist/artist";
+import { useFindAllArtistRequest } from "../../api/artist/artist";
 import { AxiosResponse } from "axios";
 import ArtistListItem from "../../components/artist/ArtistListItem";
 import MyProfileListItem from "../../components/users/my/MyProfileListItem";
@@ -11,6 +11,7 @@ import Bottom from "../../components/common/Bottom";
 const Main = () => {
   const navigate = useNavigate();
   const [artists, setArtists] = useState<Artist[] | undefined>(undefined);
+  const { findAllArtistRequest } = useFindAllArtistRequest();
 
   useEffect(() => {
     fetchData();

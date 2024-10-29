@@ -1,8 +1,7 @@
 import { Form, Row, Button, Container, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { LoginRequest } from "../../types/auth/LoginRequest";
-import { useMutation } from "react-query";
-import { doLoginRequest } from "../../api/auth/auth";
+import { useDoLoginRequest } from "../../api/auth/auth";
 import { AxiosError, AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 import logoImage from "../../assets/images/main-logo.jpg";
@@ -15,14 +14,13 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginRequest>();
 
+  const { doLoginRequest } = useDoLoginRequest();
   const navigate = useNavigate();
-  const mutation = useMutation(doLoginRequest);
 
   const registrationEndpont = "/users/registration";
 
   const onSubmit = (request: LoginRequest) => {
-    mutation
-      .mutateAsync(request)
+    doLoginRequest(request)
       .then((res: AxiosResponse) => {
         localStorage.setItem("accessToken", res.data.accessToken);
         navigate("/");

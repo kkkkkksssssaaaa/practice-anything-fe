@@ -1,11 +1,10 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { RegistrationRequest } from "../../../types/users/RegistrationRequest";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import { doRegistrationRequest } from "../../../api/users/users";
+import { useDoRegistrationRequest } from "../../../api/users/users";
 import { AxiosError, AxiosResponse } from "axios";
-import { doLoginRequest } from "../../../api/auth/auth";
 import { useNavigate } from "react-router-dom";
+import { useDoLoginRequest } from "../../../api/auth/auth";
 
 const Registration = () => {
   const {
@@ -13,25 +12,25 @@ const Registration = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegistrationRequest>();
+  const { doRegistrationRequest } = useDoRegistrationRequest();
+  const { doLoginRequest } = useDoLoginRequest();
 
   const navigate = useNavigate();
-  const registartionMutation = useMutation(doRegistrationRequest);
-  const loginMutation = useMutation(doLoginRequest);
 
   const onSubmit = (request: RegistrationRequest) => {
     if (request.password != request.passwordConfirm) {
       alert("Not valid password.");
     } else {
-      registartionMutation
-        .mutateAsync(request)
+      doRegistrationRequest(request)
         .then((_ignore: AxiosResponse) => {
           alert("Registration is complete.");
 
-          loginMutation
-            .mutateAsync({
-              loginId: request.loginId,
-              password: request.password,
-            })
+          const loginRequest = {
+            loginId: request.loginId,
+            password: request.password,
+          };
+
+          doLoginRequest(loginRequest)
             .then((res: AxiosResponse) => {
               localStorage.setItem("accessToken", res.data.accessToken);
               navigate("/");

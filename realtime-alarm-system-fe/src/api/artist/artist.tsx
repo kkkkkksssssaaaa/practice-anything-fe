@@ -1,9 +1,15 @@
-import api from "..";
+import { useApi } from "..";
 
 const findAllEndpoint = "/artists";
 
-export const findAllArtistRequest = async () => {
-  return api.get({
-    path: findAllEndpoint,
-  });
+export const useFindAllArtistRequest = () => {
+  const api = useApi();
+
+  const findAllArtistRequest = async () => {
+    return api.get({
+      path: findAllEndpoint,
+    });
+  };
+
+  return { findAllArtistRequest };
 };

@@ -3,13 +3,14 @@ import defaultProfileIcon from "../../../assets/images/default-profile-image.png
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MyInfoResponse } from "../../../types/users/MyInfoResponse";
-import { getMyInfoRequest } from "../../../api/users/my";
 import { AxiosError, AxiosResponse } from "axios";
 import "../../../assets/styles/users/my.scss";
+import { useGetMyInfoRequest } from "../../../api/users/my";
 
 const MyProfileListItem = () => {
   const navigate = useNavigate();
   const [myInfo, setMyInfo] = useState<MyInfoResponse>();
+  const { getMyInfoRequest } = useGetMyInfoRequest();
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
