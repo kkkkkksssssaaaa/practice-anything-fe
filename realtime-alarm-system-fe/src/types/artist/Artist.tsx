@@ -3,6 +3,7 @@ export type Artist = {
   name: string;
   group?: Group | undefined;
   profile?: Profile | undefined;
+  isSubscribed: boolean;
 };
 
 export type Group = {
