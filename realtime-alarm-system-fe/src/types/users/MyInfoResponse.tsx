@@ -7,6 +7,7 @@ export interface MyInfoResponse {
 export interface PersonalInfo {
   name: string;
   birth: string;
+  loginId: string;
 }
 
 export interface MyProfile {

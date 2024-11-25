@@ -4,6 +4,7 @@ import Main from "../pages/main/Main";
 import Login from "../pages/auth/Login";
 import Logout from "../pages/auth/Logout";
 import Registration from "../pages/users/registration/Registration";
+import More from "../pages/more/More";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/users/registration",
     element: <Registration />,
+  },
+  {
+    path: "/more",
+    element: <More />,
   },
 ]);
 
