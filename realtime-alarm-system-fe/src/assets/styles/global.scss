@@ -45,7 +45,8 @@ code {
   font-size: 0.8rem;
 }
 
-.profile-list-item {
+.profile-list-item,
+.setting-list-item {
   width: 100%;
   height: 8vh;
   list-style: none;
@@ -55,7 +56,8 @@ code {
   padding: 10px;
   border-bottom: 1px solid #ddd;
 
-  .profile-image {
+  .profile-image,
+  .setting-icon {
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -70,16 +72,19 @@ code {
     }
   }
 
-  .profile-left {
+  .profile-left,
+  .setting-left {
     display: flex;
     align-items: center;
 
-    .profile-nickname {
+    .profile-nickname,
+    .setting-name {
       font-size: 0.9rem;
     }
   }
 
-  .profile-message {
+  .profile-message,
+  .setting-arrow {
     font-size: 0.7rem;
     color: #888;
     text-align: right;

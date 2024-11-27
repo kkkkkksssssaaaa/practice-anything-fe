@@ -5,6 +5,8 @@ import { AxiosError, AxiosResponse } from "axios";
 import { Col, Container, Row } from "react-bootstrap";
 import defaultProfileIcon from "../../assets/images/default-profile-image.png";
 import Bottom from "../../components/common/Bottom";
+import MoreListItem from "./MoreListItem";
+import { settings } from "../../types/more/Settings";
 
 const More = () => {
   const [myInfo, setMyInfo] = useState<MyInfoResponse>();
@@ -37,6 +39,11 @@ const More = () => {
             <span>{myInfo?.personalInfo?.loginId}</span>
           </div>
         </Col>
+      </Row>
+      <Row>
+        {settings.map((item) => (
+          <MoreListItem key={item.link} {...item} />
+        ))}
       </Row>
       <Bottom />
     </Container>
