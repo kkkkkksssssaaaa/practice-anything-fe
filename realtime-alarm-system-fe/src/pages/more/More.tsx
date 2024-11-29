@@ -23,11 +23,11 @@ const More = () => {
   }, []);
 
   return (
-    <Container className="profile-more text-center">
+    <Container className="profile-more">
       <Row className="justify-content-center mb-4">
         <h1>MORE</h1>
       </Row>
-      <Row className="justify-content-center mb-4">
+      <Row className="justify-content-center mb-4 profile-item">
         <Col xs="auto">
           <div className="profile-image">
             <img src={myInfo?.profile?.image || defaultProfileIcon} />
@@ -40,11 +40,9 @@ const More = () => {
           </div>
         </Col>
       </Row>
-      <Row>
-        {settings.map((item) => (
-          <MoreListItem key={item.link} {...item} />
-        ))}
-      </Row>
+      {settings.map((item) => (
+        <MoreListItem key={item.link} {...item} />
+      ))}
       <Bottom />
     </Container>
   );

@@ -2,12 +2,11 @@ import { Row } from "react-bootstrap";
 import "../../assets/styles/global.scss";
 import "../../assets/styles/artist/artist.scss";
 import { Setting } from "../../types/more/Settings";
-import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 
 const MoreListItem = (props: Setting) => {
   return (
-    <Row>
+    <Row className={"setting-list"}>
       <div className={"setting-list-item"}>
         <div className={"setting-left"}>
           <div className="setting-icon">{props.icon}</div>

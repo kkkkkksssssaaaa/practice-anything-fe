@@ -45,6 +45,18 @@ code {
   font-size: 0.8rem;
 }
 
+.profile-list-item {
+  border-bottom: 1px solid #eee;
+}
+
+.setting-list {
+  padding: 0 15px;
+}
+
+.profile-more .setting-list:nth-child(3) .setting-list-item {
+  border-top: 1px solid #eee;
+}
+
 .profile-list-item,
 .setting-list-item {
   width: 100%;
@@ -54,7 +66,6 @@ code {
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
 
   .profile-image,
   .setting-icon {
@@ -66,6 +77,22 @@ code {
 
     img {
       width: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+  }
+
+  .setting-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+
+    svg {
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       object-fit: cover;
       margin-right: 15px;
@@ -94,10 +121,11 @@ code {
 .profile-more {
   width: 100%;
   height: 100vh;
-  // list-style: none;
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+
+  .profile-item * {
+    text-align: center;
+  }
 
   .profile-image {
     width: 30vw;
