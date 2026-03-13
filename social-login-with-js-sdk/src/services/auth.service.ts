@@ -32,7 +32,7 @@ export const authService = {
 
     // 백엔드가 설정된 경우 서버 토큰으로 교환
     if (import.meta.env.VITE_API_BASE_URL) {
-      const response = await authRepository.login({
+      const response = await authRepository.login(provider, {
         provider: result.provider,
         accessToken: result.accessToken,
         authorizationCode: result.authorizationCode,
