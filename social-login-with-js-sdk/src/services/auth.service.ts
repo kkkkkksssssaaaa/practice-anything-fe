@@ -1,4 +1,5 @@
 import { getSocialProvider } from '../providers';
+import { ApiError } from '../lib/httpClient';
 import { authRepository } from '../repositories/auth.repository';
 import type { SocialProviderType } from '../types/auth';
 import type { User } from '../types/user';
@@ -6,14 +7,14 @@ import type { User } from '../types/user';
 const STORAGE_KEYS = {
   provider: 'provider',
   accessToken: 'accessToken',
-  refreshToken: 'refreshToken',
   socialUser: 'socialUser',
 } as const;
 
 export const authService = {
   /**
    * 소셜 SDK로 로그인 후 서버 토큰 발급까지 처리.
-   * VITE_API_BASE_URL 미설정 시 소셜 SDK 토큰만 저장 (백엔드 없이 테스트 가능).
+   * - 서버 login 404 → 미가입 사용자로 판단, signup 자동 호출
+   * - VITE_API_BASE_URL 미설정 시 소셜 SDK 토큰만 저장 (백엔드 없이 테스트 가능)
    */
   async loginWithSocial(provider: SocialProviderType): Promise<void> {
     const socialProvider = getSocialProvider(provider);
@@ -24,21 +25,13 @@ export const authService = {
     localStorage.setItem(STORAGE_KEYS.provider, result.provider);
     localStorage.setItem(STORAGE_KEYS.accessToken, result.accessToken);
     if (result.user) {
-      localStorage.setItem(
-        STORAGE_KEYS.socialUser,
-        JSON.stringify(result.user),
-      );
+      localStorage.setItem(STORAGE_KEYS.socialUser, JSON.stringify(result.user));
     }
 
     // 백엔드가 설정된 경우 서버 토큰으로 교환
     if (import.meta.env.VITE_API_BASE_URL) {
-      const response = await authRepository.login(provider, {
-        provider: result.provider,
-        accessToken: result.accessToken,
-        authorizationCode: result.authorizationCode,
-      });
-      localStorage.setItem(STORAGE_KEYS.accessToken, response.token.accessToken);
-      localStorage.setItem(STORAGE_KEYS.refreshToken, response.token.refreshToken);
+      const serverToken = await loginOrSignup(provider, result.accessToken);
+      localStorage.setItem(STORAGE_KEYS.accessToken, serverToken);
     }
   },
 
@@ -64,9 +57,7 @@ export const authService = {
       }
     }
 
-    Object.values(STORAGE_KEYS).forEach((key) =>
-      localStorage.removeItem(key),
-    );
+    Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
   },
 
   isLoggedIn(): boolean {
@@ -79,3 +70,23 @@ export const authService = {
     return JSON.parse(raw) as User;
   },
 };
+
+/**
+ * 로그인 시도 후 404(미가입)이면 회원가입으로 전환.
+ * 모든 소셜 프로바이더에 공통 적용.
+ */
+async function loginOrSignup(
+  provider: SocialProviderType,
+  socialAccessToken: string,
+): Promise<string> {
+  try {
+    const res = await authRepository.login(provider, { accessToken: socialAccessToken });
+    return res.accessToken;
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 404) {
+      const res = await authRepository.signup(provider, { accessToken: socialAccessToken });
+      return res.accessToken;
+    }
+    throw err;
+  }
+}

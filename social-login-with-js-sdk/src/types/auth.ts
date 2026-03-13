@@ -16,21 +16,18 @@ export interface SocialUser {
   email?: string;
 }
 
-export interface AuthToken {
-  accessToken: string;
-  refreshToken: string;
-  expiresIn: number;
-}
-
+// POST /app/v1/auth/{platform}/login  body: SocialLoginRequest
 export interface LoginRequest {
-  provider: SocialProviderType;
-  accessToken?: string;
-  idToken?: string;
-  authorizationCode?: string;
-  redirectUri?: string;
+  accessToken: string;
 }
 
-export interface LoginResponse {
-  token: AuthToken;
+// POST /app/v1/auth/{platform}/signup  body: SocialLogoutRequest (스펙상 명칭)
+export interface SignupRequest {
+  accessToken: string;
+}
+
+// AuthTokenResponse (login / signup 공통 응답)
+export interface AuthTokenResponse {
+  accessToken: string;
   isNewUser: boolean;
 }
