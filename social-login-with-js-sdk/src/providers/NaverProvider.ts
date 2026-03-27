@@ -2,10 +2,15 @@ import type { ISocialProvider } from './SocialProvider';
 import type { SocialLoginResult } from '../types/auth';
 
 const NAVER_CLIENT_ID = import.meta.env.VITE_NAVER_CLIENT_ID;
+const NAVER_CLIENT_SECRET = import.meta.env.VITE_NAVER_CLIENT_SECRET;
 const NAVER_CALLBACK_URL =
   import.meta.env.VITE_NAVER_CALLBACK_URL ?? `${window.location.origin}/`;
 const NAVER_OAUTH_URL = 'https://nid.naver.com/oauth2.0/authorize';
+const NAVER_TOKEN_URL = 'https://nid.naver.com/oauth2.0/token';
 const NAVER_PROFILE_API_URL = 'https://openapi.naver.com/v1/nid/me';
+
+// 탈퇴 시점까지 소셜 토큰을 보관하는 키 (서버 토큰으로 교체 후에도 유지)
+const NAVER_SOCIAL_TOKEN_KEY = 'naverSocialToken';
 
 interface NaverProfileResponse {
   resultcode: string;
@@ -40,6 +45,9 @@ async function fetchNaverProfile(
 }
 
 async function handleNaverCallback(accessToken: string): Promise<SocialLoginResult> {
+  // 탈퇴 시 연결 끊기에 필요하므로 소셜 토큰을 별도 보관
+  localStorage.setItem(NAVER_SOCIAL_TOKEN_KEY, accessToken);
+
   // hash를 URL에서 제거해 새로고침 시 재처리 방지
   window.history.replaceState(null, '', window.location.pathname);
 
@@ -86,6 +94,11 @@ export class NaverProvider implements ISocialProvider {
   }
 
   logout(): Promise<void> {
+    localStorage.removeItem(NAVER_SOCIAL_TOKEN_KEY);
     return Promise.resolve();
+  }
+
+  async withdraw(): Promise<void> {
+   
   }
 }

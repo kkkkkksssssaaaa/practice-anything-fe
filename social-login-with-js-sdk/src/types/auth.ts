@@ -26,8 +26,9 @@ export interface SignupRequest {
   accessToken: string;
 }
 
-// AuthTokenResponse (login / signup 공통 응답)
+// AuthTokenResponse (login / signup / refresh 공통 응답)
 export interface AuthTokenResponse {
   accessToken: string;
-  isNewUser: boolean;
+  userId?: number;    // refresh 응답에 포함
+  isNewUser?: boolean; // login/signup 응답에 포함
 }

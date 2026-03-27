@@ -54,4 +54,9 @@ export class KakaoProvider implements ISocialProvider {
       window.Kakao.Auth.logout(() => resolve());
     });
   }
+
+  async withdraw(): Promise<void> {
+    // /v1/user/unlink: 앱과 카카오 계정 연결 끊기 (토큰도 함께 만료됨)
+    await window.Kakao.API.request({ url: '/v1/user/unlink' });
+  }
 }

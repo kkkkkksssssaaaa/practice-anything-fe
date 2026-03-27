@@ -23,6 +23,12 @@ export const HomePage = () => {
     navigate("/");
   };
 
+  const handleWithdraw = async () => {
+    if (!window.confirm("정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.")) return;
+    await authService.withdraw();
+    navigate("/");
+  };
+
   return (
     <div
       style={{
@@ -67,19 +73,33 @@ export const HomePage = () => {
         <p style={{ color: "#666" }}>사용자 정보 로드 중...</p>
       )}
 
-      <button
-        onClick={handleLogout}
-        style={{
-          marginTop: "8px",
-          padding: "10px 24px",
-          border: "1px solid #e2e8f0",
-          borderRadius: "8px",
-          background: "#fff",
-          cursor: "pointer",
-          fontSize: "14px",
-        }}>
-        로그아웃
-      </button>
+      <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
+        <button
+          onClick={handleLogout}
+          style={{
+            padding: "10px 24px",
+            border: "1px solid #e2e8f0",
+            borderRadius: "8px",
+            background: "#fff",
+            cursor: "pointer",
+            fontSize: "14px",
+          }}>
+          로그아웃
+        </button>
+        <button
+          onClick={handleWithdraw}
+          style={{
+            padding: "10px 24px",
+            border: "1px solid #feb2b2",
+            borderRadius: "8px",
+            background: "#fff",
+            color: "#e53e3e",
+            cursor: "pointer",
+            fontSize: "14px",
+          }}>
+          회원 탈퇴
+        </button>
+      </div>
     </div>
   );
 };

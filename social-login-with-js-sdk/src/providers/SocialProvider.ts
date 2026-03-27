@@ -12,4 +12,7 @@ export interface ISocialProvider {
 
   /** 소셜 SDK 세션 로그아웃 */
   logout(): Promise<void>;
+
+  /** 소셜 플랫폼 앱 연결 끊기 (탈퇴 시 호출) */
+  withdraw(): Promise<void>;
 }

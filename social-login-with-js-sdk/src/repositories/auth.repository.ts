@@ -33,16 +33,20 @@ export const authRepository = {
     httpClient<void>(buildLogoutApi(), { method: 'POST' }),
 
   /**
-   * 액세스 토큰 갱신
-   * POST /app/v1/auth/refresh
+   * 회원 탈퇴 (User/Account/Child soft delete)
+   * DELETE /app/v1/auth/{platform}/withdraw
    */
-  refresh: (refreshToken: string) =>
-    httpClient<{ accessToken: string }>(buildTokenRefreshApi(), {
+  withdraw: (provider: SocialProviderType) =>
+    httpClient<void>(`/app/v1/auth/${provider}/withdraw`, { method: 'DELETE' }),
+
+  /**
+   * 액세스 토큰 갱신 (refreshToken은 쿠키로 자동 전송)
+   * POST /app/v1/auth/token/refresh
+   */
+  refresh: () =>
+    httpClient<AuthTokenResponse>(`/app/v1/auth/token/refresh`, {
       method: 'POST',
-      body: JSON.stringify({ refreshToken }),
     }),
 };
 
 const buildLogoutApi = () => `/app/v1/auth/logout`;
-
-const buildTokenRefreshApi = () => `/app/v1/auth/refresh`;

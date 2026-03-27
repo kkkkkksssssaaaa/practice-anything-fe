@@ -35,6 +35,29 @@ export const authService = {
     }
   },
 
+  async withdraw(): Promise<void> {
+    const providerType = localStorage.getItem(
+      STORAGE_KEYS.provider,
+    ) as SocialProviderType | null;
+
+    if (!providerType) {
+      throw new Error('로그인 정보를 찾을 수 없습니다.');
+    }
+
+    if (import.meta.env.VITE_API_BASE_URL) {
+      await authRepository.withdraw(providerType);
+    }
+
+    try {
+      const socialProvider = getSocialProvider(providerType);
+      await socialProvider.withdraw();
+    } catch (err) {
+      console.warn('소셜 플랫폼 연결 끊기 실패:', err);
+    }
+
+    Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
+  },
+
   async logout(): Promise<void> {
     const providerType = localStorage.getItem(
       STORAGE_KEYS.provider,
